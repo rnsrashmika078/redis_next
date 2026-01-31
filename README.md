@@ -72,4 +72,6 @@ bun install redis / npn install redis
 
 ```
 
-#
+## DOCKER REDIS
+
+![Redis Diagram](./images/redis-setup.png)
