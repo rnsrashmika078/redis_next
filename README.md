@@ -1,21 +1,6 @@
-## 🚀 Setup Redis with Docker in Next js with Bun
+## Setup Redis with Docker in Next js with Bun
 
-### Step 1: intialize the docker
-
-```yaml
-services:
-  redis:
-    image: redis:7-alpine
-    container_name: redis_local
-    ports:
-      - "6379:6379"
-    command: ["redis-server", "--appendonly", "yes"]
-    volumes:
-      - redis_data:/data
-
-volumes:
-  redis_data:
-```
+### Step 1: Initialize the docker
 
 ### Step 2: Create docker-compose.yml
 
@@ -69,8 +54,22 @@ bun install redis / npn install redis
     }
 ```
 
-### Step 6: cache
-```bash
+### Step 6: Cache with key
 
+```bash
+        const key = "users:dummyjson";
+        const r = await getRedis();
+        const cached = await r.get(key);
+        if (cached) {
+            console.log("getting from cached!");
+            return NextResponse.json({
+                message: "Success ( redis cache) ",
+                users: JSON.parse(cached),
+            });
+        }
+
+                await r.set(key, JSON.stringify(users), { EX: 60 });
 
 ```
+
+#
